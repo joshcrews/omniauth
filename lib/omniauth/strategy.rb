@@ -415,6 +415,7 @@ module OmniAuth
         if request.scheme && request.url.match(URI::ABS_URI)
           uri = URI.parse(request.url.gsub(/\?.*$/, ''))
           uri.path = ''
+          uri.port = nil unless Rails.env == 'development'
           # sometimes the url is actually showing http inside rails because the
           # other layers (like nginx) have handled the ssl termination.
           uri.scheme = 'https' if ssl? # rubocop:disable BlockNesting
